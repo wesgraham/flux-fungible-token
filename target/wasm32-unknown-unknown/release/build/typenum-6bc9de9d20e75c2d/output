@@ -1,0 +1,2 @@
+cargo:rustc-env=TYPENUM_BUILD_OP=/Users/wesleygraham/Documents/coding/flux/near-sdk/examples/fungible-token/target/wasm32-unknown-unknown/release/build/typenum-6bc9de9d20e75c2d/out/consts.rs
+cargo:rustc-env=TYPENUM_BUILD_CONSTS=/Users/wesleygraham/Documents/coding/flux/near-sdk/examples/fungible-token/target/wasm32-unknown-unknown/release/build/typenum-6bc9de9d20e75c2d/out/op.rs
