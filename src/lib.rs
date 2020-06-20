@@ -103,6 +103,25 @@ impl FungibleToken {
         self.set_account(&owner_id, &account);
     }
 
+    fn dai_token(
+    		&self
+    	) -> u128 {
+    		let base: u128 = 10;
+    		return base.pow(17)
+    	}
+
+
+    pub fn claim_fdai(&mut self, account_id: AccountID) {
+        assert!(env::is_valid_account_id(owner_id.as_bytes()), "Owner's account ID is invalid");
+        assert!(self.validate_unclaimed(&account_id), "Owner has already claimed_fdai");
+        let claim_amount = self.dai_token() * 100;
+
+        // TODO: Update ROOT_ACCOUNT
+        let root_account = "ROOT";
+        // TODO: Who is transferring body?
+        self.transfer_from(root_account, account_id, claim_amount);
+    }
+
     /// Transfers the `amount` of tokens from `owner_id` to the `new_owner_id`.
     /// Requirements:
     /// * `amount` should be a positive integer.
@@ -193,6 +212,16 @@ impl FungibleToken {
     fn set_account(&mut self, owner_id: &AccountId, account: &Account) {
         let account_hash = env::sha256(owner_id.as_bytes());
         self.accounts.insert(&account_hash, &account);
+    }
+
+    fn validate_unclaimed(&self, owner_id: &AccountId) -> bool {
+        let account_hash = env::sha256(owner_id.as_bytes());
+        let account = self.accounts.get(&account_hash);
+        if account.is_none() {
+            return false;
+        } else {
+            return true;
+        }
     }
 }
 
